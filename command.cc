@@ -21,7 +21,7 @@
 
 SimpleCommand::SimpleCommand()
 {
-	// Creat available space for 5 arguments
+	// Create available space for 5 arguments
 	_numberOfAvailableArguments = 5;
 	_numberOfArguments = 0;
 	_arguments = (char **) malloc( _numberOfAvailableArguments * sizeof( char * ) );
@@ -132,6 +132,14 @@ Command::print()
 void
 Command::execute()
 {
+	/*We need to modify execute() so that:
+	It forks a new process for each command.
+	Uses execvp() to run the command.
+	Handles redirection (like > or <).
+	Supports pipes and background commands (&*/
+
+
+	// printf("I am trying execution :)\n");
 	// Don't do anything if there are no simple commands
 	if ( _numberOfSimpleCommands == 0 ) {
 		prompt();

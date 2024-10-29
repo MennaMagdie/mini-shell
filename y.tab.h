@@ -35,8 +35,8 @@
    especially those whose name start with YY_ or yy_.  They are
    private implementation details that can be changed or removed.  */
 
-#ifndef YY_YY_CALC_TAB_H_INCLUDED
-# define YY_YY_CALC_TAB_H_INCLUDED
+#ifndef YY_YY_Y_TAB_H_INCLUDED
+# define YY_YY_Y_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -54,14 +54,43 @@ extern int yydebug;
     YYEOF = 0,                     /* "end of file"  */
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
-    NUMBER = 258                   /* NUMBER  */
+    WORD = 258,                    /* WORD  */
+    NOTOKEN = 259,                 /* NOTOKEN  */
+    GREAT = 260,                   /* GREAT  */
+    NEWLINE = 261,                 /* NEWLINE  */
+    PIPE = 262,                    /* PIPE  */
+    LESS = 263,                    /* LESS  */
+    GREAT_GREAT = 264,             /* GREAT_GREAT  */
+    AMPERSAND = 265                /* AMPERSAND  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
+/* Token kinds.  */
+#define YYEMPTY -2
+#define YYEOF 0
+#define YYerror 256
+#define YYUNDEF 257
+#define WORD 258
+#define NOTOKEN 259
+#define GREAT 260
+#define NEWLINE 261
+#define PIPE 262
+#define LESS 263
+#define GREAT_GREAT 264
+#define AMPERSAND 265
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+union YYSTYPE
+{
+#line 14 "shell.y"
+
+	char   *string_val;
+
+#line 91 "y.tab.h"
+
+};
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif
@@ -73,4 +102,4 @@ extern YYSTYPE yylval;
 int yyparse (void);
 
 
-#endif /* !YY_YY_CALC_TAB_H_INCLUDED  */
+#endif /* !YY_YY_Y_TAB_H_INCLUDED  */
