@@ -105,6 +105,12 @@ iomodifier_opt:
         printf("Yacc: run in background\n");
         Command::_currentCommand._background = 1;
     }
+	| GREAT WORD iomodifier_opt   { 
+		printf("Yacc: Found additional output redirection > %s\n", $2); 
+		}
+    | LESS WORD iomodifier_opt    {
+		printf("Yacc: Found additional input redirection < %s\n", $2); 
+		}
     | /* can be empty */ 
     ;
 

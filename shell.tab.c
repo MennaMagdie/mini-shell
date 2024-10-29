@@ -88,10 +88,7 @@
 #  endif
 # endif
 
-/* Use api.header.include to #include this header
-   instead of duplicating it here.  */
-#ifndef YY_YY_Y_TAB_H_INCLUDED
-# define YY_YY_Y_TAB_H_INCLUDED
+
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -120,19 +117,6 @@ extern int yydebug;
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
-/* Token kinds.  */
-#define YYEMPTY -2
-#define YYEOF 0
-#define YYerror 256
-#define YYUNDEF 257
-#define WORD 258
-#define NOTOKEN 259
-#define GREAT 260
-#define NEWLINE 261
-#define PIPE 262
-#define LESS 263
-#define GREAT_GREAT 264
-#define AMPERSAND 265
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -142,7 +126,7 @@ union YYSTYPE
 
 	char   *string_val;
 
-#line 146 "y.tab.c"
+#line 130 "shell.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -157,7 +141,7 @@ extern YYSTYPE yylval;
 int yyparse (void);
 
 
-#endif /* !YY_YY_Y_TAB_H_INCLUDED  */
+
 /* Symbol kind.  */
 enum yysymbol_kind_t
 {
@@ -199,7 +183,7 @@ extern "C"
 #include <stdio.h>
 #include "command.h"
 
-#line 203 "y.tab.c"
+#line 187 "shell.tab.c"
 
 
 #ifdef short
@@ -1168,7 +1152,7 @@ yyreduce:
         printf("Yacc: Found a pipe\n");
         Command::_currentCommand.insertSimpleCommand(Command::_currentSimpleCommand);
     }
-#line 1172 "y.tab.c"
+#line 1156 "shell.tab.c"
     break;
 
   case 7: /* simple_command: command_and_args iomodifier_opt NEWLINE  */
@@ -1177,13 +1161,13 @@ yyreduce:
         printf("Yacc: Execute command\n");
         Command::_currentCommand.execute();
     }
-#line 1181 "y.tab.c"
+#line 1165 "shell.tab.c"
     break;
 
   case 9: /* simple_command: error NEWLINE  */
 #line 57 "shell.y"
                     { yyerrok; }
-#line 1187 "y.tab.c"
+#line 1171 "shell.tab.c"
     break;
 
   case 10: /* command_and_args: command_word arg_list  */
@@ -1191,7 +1175,7 @@ yyreduce:
                           {
         Command::_currentCommand.insertSimpleCommand(Command::_currentSimpleCommand);
     }
-#line 1195 "y.tab.c"
+#line 1179 "shell.tab.c"
     break;
 
   case 11: /* command_and_args: command_and_args PIPE command_word arg_list  */
@@ -1200,13 +1184,13 @@ yyreduce:
 		// handle pipe logic here
 		Command::_currentCommand.insertSimpleCommand(Command::_currentSimpleCommand);
 	}
-#line 1204 "y.tab.c"
+#line 1188 "shell.tab.c"
     break;
 
   case 13: /* arg_list: %empty  */
 #line 72 "shell.y"
                 { printf("Yacc: Empty arg_list\n"); }
-#line 1210 "y.tab.c"
+#line 1194 "shell.tab.c"
     break;
 
   case 14: /* argument: WORD  */
@@ -1215,7 +1199,7 @@ yyreduce:
         printf("Yacc: insert argument \"%s\"\n", (yyvsp[0].string_val));
         Command::_currentSimpleCommand->insertArgument((yyvsp[0].string_val));
     }
-#line 1219 "y.tab.c"
+#line 1203 "shell.tab.c"
     break;
 
   case 15: /* command_word: WORD  */
@@ -1225,7 +1209,7 @@ yyreduce:
         Command::_currentSimpleCommand = new SimpleCommand();
         Command::_currentSimpleCommand->insertArgument((yyvsp[0].string_val));
     }
-#line 1229 "y.tab.c"
+#line 1213 "shell.tab.c"
     break;
 
   case 16: /* iomodifier_opt: GREAT WORD  */
@@ -1234,7 +1218,7 @@ yyreduce:
         printf("Yacc: insert output \"%s\"\n", (yyvsp[0].string_val));
         Command::_currentCommand._outFile = (yyvsp[0].string_val);
     }
-#line 1238 "y.tab.c"
+#line 1222 "shell.tab.c"
     break;
 
   case 17: /* iomodifier_opt: LESS WORD  */
@@ -1243,7 +1227,7 @@ yyreduce:
         printf("Yacc: insert input \"%s\"\n", (yyvsp[0].string_val));
         Command::_currentCommand._inputFile = (yyvsp[0].string_val);
     }
-#line 1247 "y.tab.c"
+#line 1231 "shell.tab.c"
     break;
 
   case 18: /* iomodifier_opt: GREAT_GREAT WORD  */
@@ -1252,7 +1236,7 @@ yyreduce:
         printf("Yacc: append output \"%s\"\n", (yyvsp[0].string_val));
         Command::_currentCommand._outFile = (yyvsp[0].string_val);
     }
-#line 1256 "y.tab.c"
+#line 1240 "shell.tab.c"
     break;
 
   case 19: /* iomodifier_opt: AMPERSAND  */
@@ -1261,7 +1245,7 @@ yyreduce:
         printf("Yacc: run in background\n");
         Command::_currentCommand._background = 1;
     }
-#line 1265 "y.tab.c"
+#line 1249 "shell.tab.c"
     break;
 
   case 20: /* iomodifier_opt: GREAT WORD iomodifier_opt  */
@@ -1269,7 +1253,7 @@ yyreduce:
                                       { 
 		printf("Yacc: Found additional output redirection > %s\n", (yyvsp[-1].string_val)); 
 		}
-#line 1273 "y.tab.c"
+#line 1257 "shell.tab.c"
     break;
 
   case 21: /* iomodifier_opt: LESS WORD iomodifier_opt  */
@@ -1277,11 +1261,11 @@ yyreduce:
                                   {
 		printf("Yacc: Found additional input redirection < %s\n", (yyvsp[-1].string_val)); 
 		}
-#line 1281 "y.tab.c"
+#line 1265 "shell.tab.c"
     break;
 
 
-#line 1285 "y.tab.c"
+#line 1269 "shell.tab.c"
 
       default: break;
     }
