@@ -168,7 +168,14 @@ Command::execute()
 			exit(1);
 
 		}else {
-			wait(NULL);
+
+				if (_background) {
+				// Don't wait for the child process
+				printf("Running in background with PID: %d\n", pid);
+				} else {
+				// Wait for the child to finish
+				waitpid(pid, NULL, 0);
+			}
 		}
 
 	}
