@@ -104,6 +104,7 @@ iomodifier_opt:
     | GREAT_GREAT WORD {
         printf("Yacc: append output \"%s\"\n", $2);
         Command::_currentCommand._outFile = $2;
+        Command::_currentSimpleCommand->_append = 1;
     }
     | AMPERSAND {
         printf("Yacc: run in background\n");

@@ -10,6 +10,7 @@ struct SimpleCommand {
 	// Number of arguments
 	int _numberOfArguments;
 	char ** _arguments;
+	int _append;
 	
 	SimpleCommand();
 	void insertArgument( char * argument );
@@ -28,6 +29,8 @@ struct Command {
 	void print();
 	void execute();
 	void clear();
+
+	void redirect_(int cmd_no, int in, int out);
 	
 	Command();
 	void insertSimpleCommand( SimpleCommand * simpleCommand );

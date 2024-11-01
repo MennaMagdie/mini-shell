@@ -587,7 +587,7 @@ static const yytype_int8 yyrline[] =
 {
        0,    34,    34,    38,    39,    43,    44,    52,    56,    57,
       58,    65,    68,    75,    76,    81,    88,    96,   100,   104,
-     108,   112,   115,   118
+     109,   113,   116,   119
 };
 #endif
 
@@ -1263,37 +1263,38 @@ yyreduce:
                        {
         printf("Yacc: append output \"%s\"\n", (yyvsp[0].string_val));
         Command::_currentCommand._outFile = (yyvsp[0].string_val);
+        Command::_currentSimpleCommand->_append = 1;
     }
-#line 1268 "y.tab.c"
+#line 1269 "y.tab.c"
     break;
 
   case 20: /* iomodifier_opt: AMPERSAND  */
-#line 108 "shell.y"
+#line 109 "shell.y"
                 {
         printf("Yacc: run in background\n");
         Command::_currentCommand._background = 1;
     }
-#line 1277 "y.tab.c"
+#line 1278 "y.tab.c"
     break;
 
   case 21: /* iomodifier_opt: GREAT WORD iomodifier_opt  */
-#line 112 "shell.y"
+#line 113 "shell.y"
                                       { 
 		printf("Yacc: Found additional output redirection > %s\n", (yyvsp[-1].string_val)); 
 		}
-#line 1285 "y.tab.c"
+#line 1286 "y.tab.c"
     break;
 
   case 22: /* iomodifier_opt: LESS WORD iomodifier_opt  */
-#line 115 "shell.y"
+#line 116 "shell.y"
                                   {
 		printf("Yacc: Found additional input redirection < %s\n", (yyvsp[-1].string_val)); 
 		}
-#line 1293 "y.tab.c"
+#line 1294 "y.tab.c"
     break;
 
 
-#line 1297 "y.tab.c"
+#line 1298 "y.tab.c"
 
       default: break;
     }
@@ -1486,7 +1487,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 121 "shell.y"
+#line 122 "shell.y"
 
 
 // Error handling function

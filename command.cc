@@ -17,6 +17,8 @@
 #include <string.h>
 #include <signal.h>
 
+#include <fcntl.h> //for open fn
+
 // #include <csignal>  // For signal handling
 // #include <iostream> // For printing to console
 
@@ -74,6 +76,53 @@ Command::insertSimpleCommand( SimpleCommand * simpleCommand )
 	
 	_simpleCommands[ _numberOfSimpleCommands ] = simpleCommand;
 	_numberOfSimpleCommands++;
+}
+
+
+void Command::redirect_(int cmd_no, int in, int out){
+
+	if(_inputFile){
+
+		int infd=open(_inputFile,O_RDONLY,0666);
+
+		if(infd<0){
+			perror("walahy ma3raf | input");
+			exit(2);
+		}
+
+		dup2(infd, 0);
+		// dup2(out, 1);
+		close(infd);
+		// close(out);
+		return;
+
+	} 
+	else if(_outFile){ //2 cases df
+
+		int outfd;
+
+		if(_simpleCommands[cmd_no]->_append)
+			outfd = open(_outFile, O_WRONLY | O_CREAT | O_APPEND, 0666);
+		else
+			outfd = open(_outFile, O_WRONLY | O_CREAT, 0666);
+
+		if(outfd < 0){
+			perror("walahy ma3raf | output");
+			exit(2);
+		}
+
+		// dup2(in, 0);
+		dup2(outfd, 1);
+		// close(in);
+		close(outfd);
+		return;
+
+	}
+	else{
+		close(in);
+		close(out);
+		return;
+	}
 }
 
 void
@@ -136,6 +185,11 @@ Command::print()
 void
 Command::execute()
 {
+
+	int defaultin = dup(0);
+	int defaultout = dup(1);
+	int defaulterr = dup(2);
+
 	/*We need to modify execute() so that:
 	It forks a new process for each command.
 	Uses execvp() to run the command.
@@ -151,7 +205,7 @@ Command::execute()
 	}
 	else if(_numberOfSimpleCommands == 1 ){
 
-		prompt();
+		// prompt();
 
 		pid_t pid = fork();
 
@@ -159,7 +213,12 @@ Command::execute()
 			perror("Fork failed");
 			exit(1);
 
-		}else if (pid == 0) {
+		}else if (pid == 0) { //CHILD
+
+			this->redirect_(0, defaultin, defaultout);
+			close(defaultin);
+			close(defaultout);
+
 			char cmd_path[20] = "/bin/";
 			strcat(cmd_path, _simpleCommands[0]->_arguments[0]);
 			execvp(cmd_path	, _simpleCommands[0]->_arguments);
@@ -167,16 +226,23 @@ Command::execute()
 			perror("Execution failed");
 			exit(1);
 
-		}else {
+		}else { //PARENT
+
+				dup2(defaultin, 0);
+				dup2(defaultout, 1);
+				dup2(defaulterr, 2);
+				close(defaultin);
+				close(defaultout);
+				close(defaulterr);
 
 				if (_background) {
-				// Don't wait for the child process
 				printf("Running in background with PID: %d\n", pid);
 				} else {
-				// Wait for the child to finish
 				waitpid(pid, NULL, 0);
 			}
+
 		}
+
 
 	}
 

@@ -32,6 +32,9 @@ main(int argc, char **argv, char **envp)
 	// change them during redirection and we will need to restore them
 	// at the end.
 	// The dup() system call creates a copy of a file descriptor.
+
+
+	//will allow the program to restore these streams after redirecting them.
 	int defaultin = dup( 0 );
 	int defaultout = dup( 1 );
 	int defaulterr = dup( 2 );
