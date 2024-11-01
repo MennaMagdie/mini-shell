@@ -40,7 +40,12 @@
 		return AMPERSAND;
 }
 
-"|"  { printf("Lex: Found a PIPE token\n"); return PIPE; }
+"|"    { 
+		printf("Lex: Found a PIPE token\n"); return PIPE; }
+
+"exit" {
+		return EXIT;
+}
 
 
 [^ \t\n][^ \t\n]*  {

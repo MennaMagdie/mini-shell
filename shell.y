@@ -9,7 +9,7 @@
  */
 
 %token	<string_val> WORD
-%token  NOTOKEN GREAT NEWLINE PIPE LESS GREAT_GREAT AMPERSAND
+%token  NOTOKEN GREAT NEWLINE PIPE LESS GREAT_GREAT AMPERSAND EXIT
 
 %union	{
 	char   *string_val;
@@ -55,6 +55,10 @@ simple_command:
     }
     | NEWLINE 
     | error NEWLINE { yyerrok; }
+    | EXIT NEWLINE {
+        printf("Exiting shell..\n");
+        exit(0);
+    }
     ;
 
 command_and_args:

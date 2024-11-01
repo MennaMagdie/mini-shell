@@ -17,6 +17,10 @@
 #include <string.h>
 #include <signal.h>
 
+// #include <csignal>  // For signal handling
+// #include <iostream> // For printing to console
+
+
 #include "command.h"
 
 SimpleCommand::SimpleCommand()
@@ -145,6 +149,32 @@ Command::execute()
 		prompt();
 		return;
 	}
+	else if(_numberOfSimpleCommands == 1 ){
+
+		prompt();
+
+		pid_t pid = fork();
+
+		if (pid == -1) {
+			perror("Fork failed");
+			exit(1);
+
+		}else if (pid == 0) {
+			char cmd_path[20] = "/bin/";
+			strcat(cmd_path, _simpleCommands[0]->_arguments[0]);
+			execvp(cmd_path	, _simpleCommands[0]->_arguments);
+			
+			perror("Execution failed");
+			exit(1);
+
+		}else {
+			wait(NULL);
+		}
+
+	}
+
+
+
 
 	// Print contents of Command data structure
 	print();
@@ -175,9 +205,13 @@ SimpleCommand * Command::_currentSimpleCommand;
 
 int yyparse(void);
 
-int 
-main()
+void handle_sigint(int sig){
+	printf("\nCaught Ctrl+C (SIGINT), but shell will not exit.\n");
+}
+
+int main()
 {
+	signal(SIGINT, handle_sigint);
 	Command::_currentCommand.prompt();
 	yyparse();
 	return 0;
