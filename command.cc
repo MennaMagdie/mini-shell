@@ -125,6 +125,81 @@ void Command::redirect_(int cmd_no, int in, int out){
 	}
 }
 
+
+void Command::handlePipes(int defaultin, int defaultout)
+{
+    int previousPipe[2];
+    pid_t lastChild;
+    for (int i = 0; i < _numberOfSimpleCommands; i++)
+    {
+        int currentPipe[2];
+        if (pipe(currentPipe) == -1)
+        {
+            perror("pipe creation error");
+            exit(2);
+        }
+        pid_t pid = fork();
+        if (pid == -1)
+        {
+            perror("fork error");
+            exit(2);
+        }
+        else if (pid == 0)
+        {
+            if (i == 0)
+            { // first Pipe ->default input , put output in current pipe
+                dup2(defaultin, 0);
+                dup2(currentPipe[1], 1);
+            }
+            else if (i < _numberOfSimpleCommands - 1)
+            { // mid pipes-> input from previous Pipe, output in current Pipe
+                dup2(previousPipe[0], 0);
+                dup2(currentPipe[1], 1);
+            }
+            else
+            { // Last pipe -> input from previous Pipe, output to terminal or file
+                this->redirect_(i, previousPipe[0], defaultout);
+                lastChild = pid;
+            }
+            close(previousPipe[0]);
+            close(previousPipe[1]);
+            close(currentPipe[0]);
+            close(currentPipe[1]);
+            close(defaultin);
+            close(defaultout);
+            char path[20] = "/bin/";
+            strcat(path, _simpleCommands[i]->_arguments[0]);
+            execvp(path, _simpleCommands[i]->_arguments);
+            perror("Command Failed-->no command with this name\n");
+            exit(2);
+        }
+        else
+        {
+            if (i > 0)
+            {
+                close(previousPipe[0]);
+                close(previousPipe[1]);
+            }
+            // Save Last operation output/input
+            previousPipe[0] = currentPipe[0];
+            previousPipe[1] = currentPipe[1];
+            if (i == _numberOfSimpleCommands - 1)
+            {
+                close(currentPipe[0]);
+                close(currentPipe[1]);
+                dup2(defaultin, 0);
+                dup2(defaultout, 1);
+                close(defaultin);
+                close(defaultout);
+            }
+            // Wait only for the last child process
+            waitpid(lastChild, NULL, 0);
+            // childTerminated(pid, i);
+        }
+    }
+}
+
+
 void
 Command:: clear()
 {
@@ -244,6 +319,9 @@ Command::execute()
 		}
 
 
+	}
+	else {
+		this->handlePipes(defaultin, defaultout);
 	}
 
 

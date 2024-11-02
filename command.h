@@ -31,6 +31,7 @@ struct Command {
 	void clear();
 
 	void redirect_(int cmd_no, int in, int out);
+	void handlePipes(int defaultin, int defaultout);
 	
 	Command();
 	void insertSimpleCommand( SimpleCommand * simpleCommand );
