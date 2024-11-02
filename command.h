@@ -30,6 +30,8 @@ struct Command {
 	void execute();
 	void clear();
 
+	void changeDirectory(const char *dir);
+
 	// void redirect_(int cmd_no, int in, int out);
 	void handleFiles(int i, int myinput, int myoutput);
 	void handlePipes(int defaultin, int defaultout);

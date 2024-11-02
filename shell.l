@@ -44,6 +44,11 @@
 		return EXIT;
 }
 
+"cd"  {
+    yylval.string_val = strdup(yytext);
+    return CD;
+}
+
 
 [^ \t\n][^ \t\n]*  {
 		/* Assume that file names have only alpha chars */

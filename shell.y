@@ -11,6 +11,7 @@
 %token	<string_val> WORD
 %token  NOTOKEN GREAT NEWLINE LESS GREAT_GREAT AMPERSAND EXIT
 %token  PIPE
+%token CD
 
 %union	{
 	char   *string_val;
@@ -24,6 +25,7 @@ extern "C"
 }
 #define yylex yylex
 #include <stdio.h>
+
 #include "command.h"
 %}
 
@@ -53,6 +55,14 @@ simple_command:
     command_and_args iomodifier_opt NEWLINE {
         printf("Yacc: Execute command ZZZZ\n");
         Command::_currentCommand.execute();
+    }
+    | CD WORD NEWLINE { 
+        //printf("Changing directory to %s\n", $2);
+        Command::_currentCommand.changeDirectory($2);
+    }
+    | CD NEWLINE { 
+        //printf("Changing to home directory\n");
+        Command::_currentCommand.changeDirectory(NULL); 
     }
     | NEWLINE 
     | error NEWLINE { yyerrok; }

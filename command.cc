@@ -27,6 +27,11 @@
 #include <chrono>
 #include <ctime>
 
+#include <errno.h>
+#include <limits.h>  // For PATH_MAX
+
+
+
 
 SimpleCommand::SimpleCommand()
 {
@@ -52,6 +57,8 @@ void SimpleCommand::insertArgument(char *argument)
 
 	_numberOfArguments++;
 }
+
+
 
 Command::Command()
 {
@@ -140,6 +147,24 @@ void Command::print()
 		   _background ? "YES" : "NO");
 	printf("\n\n");
 }
+
+void Command::changeDirectory(const char *dir) {
+    if (dir == NULL || strcmp(dir, "") == 0) {
+        dir = getenv("HOME");
+        if (dir == NULL) {
+            fprintf(stderr, "Error: HOME environment variable not set\n");
+            return;
+        }
+    }
+    // Try to change directory
+    if (chdir(dir) != 0) {
+        perror("cd failed");
+    }
+
+	prompt();
+}
+
+
 void Command::handleFiles(int i, int myinput, int myoutput)
 {
 	if (_outFile)
@@ -319,10 +344,25 @@ void Command::execute()
 
 // Shell implementation
 
+// void Command::prompt()
+// {
+// 	printf("myshell>");
+// 	fflush(stdout);
+// }
+
 void Command::prompt()
 {
-	printf("myshell>");
-	fflush(stdout);
+    char cwd[PATH_MAX]; 
+
+    // Get the current working directory
+    if (getcwd(cwd, sizeof(cwd)) != NULL) {
+        printf("%s>", cwd);
+    } else {
+        perror("getcwd");  // Handle error if getcwd fails
+    }
+
+
+    fflush(stdout);       // Ensure the prompt is printed immediately
 }
 
 Command Command::_currentCommand;
