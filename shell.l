@@ -20,9 +20,6 @@
 		return NEWLINE;
 	}
 
-[ \t] 	{
-		/* Discard spaces and tabs */
-     	}	
 
 ">" 	{
 		return GREAT;
@@ -54,7 +51,11 @@
 		return WORD;
 	}
 
-.	{
+[ \t] 	{
+		/* Discard spaces and tabs */
+     	}	
+
+'.'	{
 		/* Invalid character in input */
 		return NOTOKEN;
 	}

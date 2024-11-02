@@ -91,9 +91,9 @@ void Command::redirect_(int cmd_no, int in, int out){
 		}
 
 		dup2(infd, 0);
-		// dup2(out, 1);
 		close(infd);
-		// close(out);
+		dup2(out, 1);
+		close(out);
 		return;
 
 	} 
@@ -104,16 +104,16 @@ void Command::redirect_(int cmd_no, int in, int out){
 		if(_simpleCommands[cmd_no]->_append)
 			outfd = open(_outFile, O_WRONLY | O_CREAT | O_APPEND, 0666);
 		else
-			outfd = open(_outFile, O_WRONLY | O_CREAT, 0666);
+			outfd = open(_outFile, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 
 		if(outfd < 0){
 			perror("walahy ma3raf | output");
 			exit(2);
 		}
 
-		// dup2(in, 0);
+		dup2(in, 0);
+		close(in);
 		dup2(outfd, 1);
-		// close(in);
 		close(outfd);
 		return;
 

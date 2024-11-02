@@ -58,11 +58,11 @@ extern int yydebug;
     NOTOKEN = 259,                 /* NOTOKEN  */
     GREAT = 260,                   /* GREAT  */
     NEWLINE = 261,                 /* NEWLINE  */
-    PIPE = 262,                    /* PIPE  */
-    LESS = 263,                    /* LESS  */
-    GREAT_GREAT = 264,             /* GREAT_GREAT  */
-    AMPERSAND = 265,               /* AMPERSAND  */
-    EXIT = 266                     /* EXIT  */
+    LESS = 262,                    /* LESS  */
+    GREAT_GREAT = 263,             /* GREAT_GREAT  */
+    AMPERSAND = 264,               /* AMPERSAND  */
+    EXIT = 265,                    /* EXIT  */
+    PIPE = 266                     /* PIPE  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -75,17 +75,17 @@ extern int yydebug;
 #define NOTOKEN 259
 #define GREAT 260
 #define NEWLINE 261
-#define PIPE 262
-#define LESS 263
-#define GREAT_GREAT 264
-#define AMPERSAND 265
-#define EXIT 266
+#define LESS 262
+#define GREAT_GREAT 263
+#define AMPERSAND 264
+#define EXIT 265
+#define PIPE 266
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 14 "shell.y"
+#line 15 "shell.y"
 
 	char   *string_val;
 
