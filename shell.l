@@ -49,16 +49,14 @@
     return CD;
 }
 
-
-[^ \t\n][^ \t\n]*  {
-		/* Assume that file names have only alpha chars */
-		yylval.string_val = strdup(yytext);
-		return WORD;
-	}
-
-[ \t] 	{
+[ \t]+ 	{
 		/* Discard spaces and tabs */
      	}	
+
+[-a-zA-Z0-9_][a-zA-Z0-9_.-]* {
+    yylval.string_val = strdup(yytext);
+    return WORD;
+}
 
 '.'	{
 		/* Invalid character in input */

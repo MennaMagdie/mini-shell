@@ -2,6 +2,9 @@
 #ifndef command_h
 #define command_h
 
+
+#include <fcntl.h>
+
 // Command Data Structure
 struct SimpleCommand {
 	// Available space for arguments currently preallocated
@@ -32,8 +35,10 @@ struct Command {
 
 	void changeDirectory(const char *dir);
 
+	void logTerminatedChild(pid_t pid, int i);
+
 	// void redirect_(int cmd_no, int in, int out);
-	void handleFiles(int i, int myinput, int myoutput);
+	void redirect(int i, int myinput, int myoutput);
 	void handlePipes(int defaultin, int defaultout);
 	
 	Command();

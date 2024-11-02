@@ -30,6 +30,11 @@
 #include <errno.h>
 #include <limits.h>  // For PATH_MAX
 
+#include <iomanip>
+
+using namespace std;
+
+
 
 
 
@@ -164,8 +169,31 @@ void Command::changeDirectory(const char *dir) {
 	prompt();
 }
 
+void Command::logTerminatedChild(pid_t pid, int i)
+{
+     auto now = std::chrono::system_clock::now();
+    std::time_t end_time = std::chrono::system_clock::to_time_t(now);
+    
+    std::ostringstream oss;
+    oss << std::put_time(std::localtime(&end_time), "%d-%m-%Y %H:%M");
 
-void Command::handleFiles(int i, int myinput, int myoutput)
+    std::ofstream logfile("logfile.log", std::ios_base::app);
+    if (!logfile) {
+        std::cerr << "Error opening logfile.log" << std::endl;
+        return;
+    }
+
+    logfile << oss.str() << " Child process " << pid << " ";
+    
+    for (int j = 0; j < _simpleCommands[i]->_numberOfArguments; j++) {
+        logfile << " " << _simpleCommands[i]->_arguments[j];
+    }
+    
+    logfile << " terminated" << std::endl;
+	logfile.close();
+}
+
+void Command::redirect(int i, int myinput, int myoutput)
 {
 	if (_outFile)
 	{
@@ -174,7 +202,7 @@ void Command::handleFiles(int i, int myinput, int myoutput)
 
 		if (outfd < 0)
 		{
-			perror("Error: creat outfile");
+			perror("Error: create outfile");
 			exit(2);
 		}
 		dup2(myinput, 0);
@@ -244,7 +272,7 @@ void Command::handlePipes(int defaultin, int defaultout)
 			}
 			else
 			{ 
-				this->handleFiles(i, previousPipe[0], defaultout);
+				this->redirect(i, previousPipe[0], defaultout);
 				lastChild = pid;
 			}
 			close(previousPipe[0]);
@@ -280,6 +308,7 @@ void Command::handlePipes(int defaultin, int defaultout)
 			}
 			
 			waitpid(lastChild, NULL, 0);
+			logTerminatedChild(pid, i);
 
 		}
 	}
@@ -308,7 +337,7 @@ void Command::execute()
 
 		else if (pid == 0)
 		{
-			this->handleFiles(0, defaultin, defaultout);
+			this->redirect(0, defaultin, defaultout);
 			close(defaultin);
 			close(defaultout);
 			char path[20] = "/bin/";
@@ -327,8 +356,8 @@ void Command::execute()
 			if(!_background)
 			{
 			waitpid(pid, NULL, 0);
-			
 			}
+			logTerminatedChild(pid,0);
 		}
 	}
 	else
@@ -354,15 +383,13 @@ void Command::prompt()
 {
     char cwd[PATH_MAX]; 
 
-    // Get the current working directory
     if (getcwd(cwd, sizeof(cwd)) != NULL) {
         printf("%s>", cwd);
     } else {
         perror("getcwd");  // Handle error if getcwd fails
     }
 
-
-    fflush(stdout);       // Ensure the prompt is printed immediately
+    fflush(stdout);
 }
 
 Command Command::_currentCommand;
