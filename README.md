@@ -2,7 +2,10 @@
 
 This project implements a simple command-line shell, capable of running basic shell commands, handling input/output redirection, piping, and background execution of processes.
 
-
+Tools/ Languages Used:
+- C for main execution functions (POSEX standard system calls used)
+- Lex for lexical analysis, to tokenize input and handle regex
+- Yacc for parsing, to generate the syntax and handle grammar rules for shell commands
 
 ## 1. Features
 - Basic command execution with attributes(ls, ls -al, pwd, cat, etc..)
@@ -13,13 +16,7 @@ This project implements a simple command-line shell, capable of running basic sh
 - Error handling for invalid commands or redirection
 - Processes/ Commands Tracking (in log file)
 
-
-## 2. Used Technologies
-- C for main execution functions (POSEX standard system calls used)
-- Lex for lexical analysis, to tokenize input and handle regex
-- Yacc for parsing, to generate the syntax and handle grammar rules for shell commands
-
-## 3. Installation Guide
+## 2. Installation Guide
 
 Prerequisite: make sure you have lex, yacc and make installed
 
@@ -43,10 +40,10 @@ Prerequisite: make sure you have lex, yacc and make installed
 
 	`./shell`
 
-## 4. Sample Run
+## 3. Sample Run
 
 
-## 5. Acknowledgements and Resources
+## 4. Acknowledgements and Resources
 -------------------------------
 
 
