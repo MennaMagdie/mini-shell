@@ -44,7 +44,7 @@ Prerequisite: make sure you have lex, yacc and make installed
 
 ![alt text](images/image1.png)
 
-![alt text](image.png)
+![alt text](images/image.png)
 
 
 
