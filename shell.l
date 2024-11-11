@@ -38,7 +38,7 @@
 }
 
 "|"    { 
-		printf("Lex: Found a PIPE token\n"); return PIPE; }
+		return PIPE; }
 
 "exit" {
 		return EXIT;

@@ -155,19 +155,20 @@ void Command::print()
 
 void Command::changeDirectory(const char *dir) {
     if (dir == NULL || strcmp(dir, "") == 0) {
-        dir = getenv("HOME");
+        // dir = getenv("HOME");
+		dir = "/";
         if (dir == NULL) {
-            fprintf(stderr, "Error: HOME environment variable not set\n");
-            return;
+            dir = "/";
+            fprintf(stderr, "Warning: HOME environment variable not set, changing to root directory\n");
         }
     }
-    // Try to change directory
     if (chdir(dir) != 0) {
         perror("cd failed");
     }
 
-	prompt();
+    prompt();
 }
+
 
 void Command::logTerminatedChild(pid_t pid, int i)
 {
@@ -195,50 +196,67 @@ void Command::logTerminatedChild(pid_t pid, int i)
 
 void Command::redirect(int i, int myinput, int myoutput)
 {
-	if (_outFile)
-	{
-		int outfd = _simpleCommands[i]->_append ? open(_outFile, O_WRONLY | O_CREAT | O_APPEND, 0666)
-												: open(_outFile, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+    if (_inputFile && _outFile)
+    {
+        int infd = open(_inputFile, O_RDONLY, 0666);
+        int outfd = _simpleCommands[i]->_append ? open(_outFile, O_WRONLY | O_CREAT | O_APPEND, 0666)
+                                                 : open(_outFile, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 
-		if (outfd < 0)
-		{
-			perror("Error: create outfile");
-			exit(2);
-		}
-		dup2(myinput, 0);
-		close(myinput);
-		dup2(outfd, 1);
-		close(outfd);
-		return;
-	}
-	else
-	{
-		dup2(myinput, 0);
-		close(myinput);
-		dup2(myoutput, 1);
-		close(myoutput);
-		return;
-	}
-	if (_inputFile)
-	{
-		int infd = open(_inputFile, O_RDONLY, 0666);
+        if (infd < 0 || outfd < 0)
+        {
+            perror("Error: could not open file");
+            exit(2);
+        }
 
-		if (infd < 0)
-		{
-			perror("Error: creat infile");
-			exit(2);
-		}
-		dup2(infd, 0);
-		close(infd);
-		return;
-	}
-	else
-	{
-		close(myoutput);
-		close(myinput);
-		return;
-	}
+        dup2(infd, 0); 
+        close(infd);
+
+        dup2(outfd, 1); 
+        close(outfd);
+        
+        return;
+    }
+
+    if (_inputFile)
+    {
+        int infd = open(_inputFile, O_RDONLY, 0666);
+        if (infd < 0)
+        {
+            perror("Error: could not open input file");
+            exit(2);
+        }
+        dup2(infd, 0); 
+        close(infd);
+    }
+    else if (myinput != 0)
+    {
+        dup2(myinput, 0); 
+        close(myinput);
+    }
+    if (_outFile)
+    {
+        int outfd = _simpleCommands[i]->_append ? open(_outFile, O_WRONLY | O_CREAT | O_APPEND, 0666)
+                                                 : open(_outFile, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+
+        if (outfd < 0)
+        {
+            perror("Error: could not open output file");
+            exit(2);
+        }
+        dup2(outfd, 1);
+        close(outfd);
+    }
+    else if (myoutput != 1)
+    {
+        dup2(myoutput, 1);
+        close(myoutput);
+    }
 }
+
+
+
+
+
 void Command::handlePipes(int defaultin, int defaultout)
 {
 	int previousPipe[2];
@@ -284,7 +302,7 @@ void Command::handlePipes(int defaultin, int defaultout)
 			char path[20] = "/bin/";
 			strcat(path, _simpleCommands[i]->_arguments[0]);
 			execvp(path, _simpleCommands[i]->_arguments);
-			perror("Command Failed-->no command with this name\n");
+			perror("Command Failed-->no command found\n");
 			exit(2);
 		}
 		else
@@ -316,7 +334,6 @@ void Command::handlePipes(int defaultin, int defaultout)
 
 void Command::execute()
 {
-	// Don't do anything if there are no simple commands
 	if (_numberOfSimpleCommands == 0)
 	{
 		prompt();
@@ -343,7 +360,7 @@ void Command::execute()
 			char path[20] = "/bin/";
 			strcat(path, _simpleCommands[0]->_arguments[0]);
 			execvp(path, _simpleCommands[0]->_arguments);
-			perror("Command Failed-->no command with named %s\n");
+			perror("Command Failed-->no command found\n");
 			exit(2);
 		}
 

@@ -1,5 +1,146 @@
-03-11-2024 00:07 Child process 81322  ls terminated
-03-11-2024 00:07 Child process 81324  ls -al terminated
-03-11-2024 00:07 Child process 81331  ls -al terminated
-03-11-2024 00:07 Child process 81332  grep com terminated
-03-11-2024 00:07 Child process 81333  clear terminated
+11-11-2024 19:37 Child process 27081  clear terminated
+11-11-2024 19:37 Child process 27122  ls terminated
+11-11-2024 19:37 Child process 27123  ls -al terminated
+11-11-2024 19:38 Child process 27124  clear terminated
+11-11-2024 19:38 Child process 27126  ls -al aaa bbb cc terminated
+11-11-2024 19:38 Child process 27128  ls -al terminated
+11-11-2024 19:38 Child process 27129  ls -al home etc terminated
+11-11-2024 19:38 Child process 27130  ls -al etc terminated
+11-11-2024 19:38 Child process 27131  ls -al etc terminated
+11-11-2024 19:38 Child process 27132  ls -al home etc terminated
+11-11-2024 19:41 Child process 27728  clear terminated
+11-11-2024 19:41 Child process 27733  ls -al terminated
+11-11-2024 19:41 Child process 27748  ls terminated
+11-11-2024 19:41 Child process 27750  ls terminated
+11-11-2024 19:41 Child process 27755  cat out terminated
+11-11-2024 19:41 Child process 27756  cear terminated
+11-11-2024 19:41 Child process 27757  clear terminated
+11-11-2024 19:42 Child process 27758  cat terminated
+11-11-2024 19:42 Child process 27779  clear terminated
+11-11-2024 19:42 Child process 27781  cat out terminated
+11-11-2024 19:42 Child process 27783  cat terminated
+11-11-2024 19:42 Child process 27807  cat out2 terminated
+11-11-2024 19:42 Child process 27814  clear terminated
+11-11-2024 19:43 Child process 27815  ls -al terminated
+11-11-2024 19:43 Child process 27816  grep command terminated
+11-11-2024 19:43 Child process 27856  ls -al terminated
+11-11-2024 19:43 Child process 27857  grep command terminated
+11-11-2024 19:43 Child process 27858  grep command.o terminated
+11-11-2024 19:43 Child process 27863  ls -al terminated
+11-11-2024 19:43 Child process 27864  grep command terminated
+11-11-2024 19:43 Child process 27865  ls terminated
+11-11-2024 19:43 Child process 27878  clear terminated
+11-11-2024 19:44 Child process 27879  ls -al terminated
+11-11-2024 19:44 Child process 27880  grep command terminated
+11-11-2024 19:44 Child process 27881  ls -al terminated
+11-11-2024 19:44 Child process 27882  grep command terminated
+11-11-2024 19:44 Child process 27883  grep command.o terminated
+11-11-2024 19:44 Child process 27884  ls -al terminated
+11-11-2024 19:44 Child process 27885  grep command terminated
+11-11-2024 19:44 Child process 27886  ls terminated
+11-11-2024 19:44 Child process 27887  ls -al terminated
+11-11-2024 19:44 Child process 27888  ls -al terminated
+11-11-2024 19:44 Child process 27889  grep command terminated
+11-11-2024 19:45 Child process 27893  clear terminated
+11-11-2024 19:45 Child process 27894  ls -al terminated
+11-11-2024 19:45 Child process 27895  grep command terminated
+11-11-2024 19:45 Child process 27896  ls -al grep command terminated
+11-11-2024 19:45 Child process 27897  ls -al terminated
+11-11-2024 19:45 Child process 27898  grep command terminated
+11-11-2024 19:45 Child process 27899  ls -al terminated
+11-11-2024 19:45 Child process 27900  grep command terminated
+11-11-2024 19:45 Child process 27901  ls terminated
+11-11-2024 19:45 Child process 27902  ls terminated
+11-11-2024 19:45 Child process 27903  ls terminated
+11-11-2024 19:45 Child process 27904  ls terminated
+11-11-2024 19:45 Child process 27905  clear terminated
+11-11-2024 19:45 Child process 27910  ls -al terminated
+11-11-2024 19:45 Child process 27911  grep command terminated
+11-11-2024 19:46 Child process 27914  clear terminated
+11-11-2024 19:46 Child process 27915  ls -al terminated
+11-11-2024 19:46 Child process 27916  grep command terminated
+11-11-2024 19:46 Child process 27918  ls -al terminated
+11-11-2024 19:46 Child process 27919  grep command terminated
+11-11-2024 19:46 Child process 27960  ls terminated
+11-11-2024 19:46 Child process 27961  clear terminated
+11-11-2024 19:46 Child process 27962  ls -al terminated
+11-11-2024 19:46 Child process 27963  grep command terminated
+11-11-2024 19:46 Child process 27964  grep command.o terminated
+11-11-2024 19:47 Child process 28012  cat outt terminated
+11-11-2024 19:47 Child process 28023  ls terminated
+11-11-2024 20:03 Child process 28662  ls -al etc terminated
+11-11-2024 20:04 Child process 28672  ls terminated
+11-11-2024 20:04 Child process 28673  clear terminated
+11-11-2024 20:04 Child process 28675  ls terminated
+11-11-2024 20:04 Child process 28677  cat out terminated
+11-11-2024 20:04 Child process 28678  cat out terminated
+11-11-2024 20:04 Child process 28679  clear terminated
+11-11-2024 20:04 Child process 28680  cat terminated
+11-11-2024 20:11 Child process 28895  cat terminated
+11-11-2024 20:20 Child process 30482  ls-al terminated
+11-11-2024 20:20 Child process 30483  clear terminated
+11-11-2024 20:20 Child process 30484  ls -al terminated
+11-11-2024 20:20 Child process 30485  cat out terminated
+11-11-2024 20:20 Child process 30486  clear terminated
+11-11-2024 20:20 Child process 30487  cat terminated
+11-11-2024 20:20 Child process 30510  clear terminated
+11-11-2024 20:20 Child process 30522  ls -al terminated
+11-11-2024 20:21 Child process 30523  ls -al terminated
+11-11-2024 20:21 Child process 30536  ls -al terminated
+11-11-2024 20:21 Child process 30565  ls -al terminated
+11-11-2024 20:21 Child process 30566  ls terminated
+11-11-2024 20:21 Child process 30589  cat out terminated
+11-11-2024 20:21 Child process 30590  cat terminated
+11-11-2024 20:22 Child process 30591  cat terminated
+11-11-2024 20:23 Child process 30671  ls -al terminated
+11-11-2024 20:23 Child process 30672  grep command terminated
+11-11-2024 20:23 Child process 30908  clear terminated
+11-11-2024 20:24 Child process 30911  ls -al terminated
+11-11-2024 20:24 Child process 30912  grep command terminated
+11-11-2024 20:24 Child process 30913  ls terminated
+11-11-2024 20:24 Child process 30914  ls -al terminated
+11-11-2024 20:24 Child process 30915  grep c terminated
+11-11-2024 20:24 Child process 30917  ls -al terminated
+11-11-2024 20:24 Child process 30918  grep comm terminated
+11-11-2024 20:24 Child process 30919  ls -al terminated
+11-11-2024 20:24 Child process 30920  grep command terminated
+11-11-2024 20:26 Child process 31193  ls -al terminated
+11-11-2024 20:26 Child process 31194  grep command terminated
+11-11-2024 20:27 Child process 31256  ls -al terminated
+11-11-2024 20:27 Child process 31257  grep command terminated
+11-11-2024 20:27 Child process 31276  ls -al terminated
+11-11-2024 20:27 Child process 31277  grep command terminated
+11-11-2024 20:27 Child process 31278  ls -al terminated
+11-11-2024 20:27 Child process 31279  grep com terminated
+11-11-2024 20:28 Child process 31280  ls terminated
+11-11-2024 20:28 Child process 31281  ls terminated
+11-11-2024 20:28 Child process 31282  ls terminated
+11-11-2024 20:28 Child process 31284  ls terminated
+11-11-2024 20:28 Child process 31285  cat out terminated
+11-11-2024 20:28 Child process 31286  cat terminated
+11-11-2024 20:31 Child process 31374  ls -al terminated
+11-11-2024 20:31 Child process 31375  grep comm terminated
+11-11-2024 20:31 Child process 31376  ls -al terminated
+11-11-2024 20:31 Child process 31377  grep com terminated
+11-11-2024 20:31 Child process 31378  clear terminated
+11-11-2024 20:31 Child process 31392  ls terminated
+11-11-2024 20:31 Child process 31393  ls -al terminated
+11-11-2024 20:31 Child process 31394  ls terminated
+11-11-2024 20:32 Child process 31396  ls -al terminated
+11-11-2024 20:32 Child process 31397  cat out terminated
+11-11-2024 20:32 Child process 31407  clear terminated
+11-11-2024 20:32 Child process 31421  cat terminated
+11-11-2024 20:38 Child process 31663  clear terminated
+11-11-2024 20:38 Child process 31664  ls -al terminated
+11-11-2024 20:38 Child process 31665  ls terminated
+11-11-2024 20:38 Child process 31666  cat out terminated
+11-11-2024 20:38 Child process 31667  cat terminated
+11-11-2024 20:46 Child process 31673  cat terminated
+11-11-2024 20:46 Child process 31962  clear terminated
+11-11-2024 20:47 Child process 33314  ls -al terminated
+11-11-2024 20:47 Child process 33316  ls terminated
+11-11-2024 20:47 Child process 33325  cat out terminated
+11-11-2024 20:47 Child process 33326  cat terminated
+11-11-2024 20:47 Child process 33327  clear terminated
+11-11-2024 20:47 Child process 33328  cat terminated
+11-11-2024 20:47 Child process 33329  clear terminated

@@ -590,8 +590,8 @@ static const yytype_int8 yytranslate[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    37,    37,    41,    42,    46,    47,    55,    59,    63,
-      67,    68,    69,    76,    79,    86,    87,    92,    99,   107,
-     112,   116,   121,   125,   128,   131
+      67,    68,    69,    76,    79,    86,    87,    93,   100,   108,
+     113,   117,   122,   126,   129,   132
 };
 #endif
 
@@ -1172,7 +1172,7 @@ yyreduce:
   case 6: /* command: command PIPE simple_command  */
 #line 47 "shell.y"
                                   {
-        printf("Yacc: Found a pipe\n");
+        //printf("Yacc: Found a pipe\n");
         Command::_currentCommand.insertSimpleCommand(Command::_currentSimpleCommand);
     }
 #line 1179 "y.tab.c"
@@ -1181,7 +1181,7 @@ yyreduce:
   case 7: /* simple_command: command_and_args iomodifier_opt NEWLINE  */
 #line 55 "shell.y"
                                             {
-        printf("Yacc: Execute command ZZZZ\n");
+        //printf("Yacc: Execute command ZZZZ\n");
         Command::_currentCommand.execute();
     }
 #line 1188 "y.tab.c"
@@ -1239,85 +1239,86 @@ yyreduce:
 
   case 16: /* arg_list: %empty  */
 #line 87 "shell.y"
-                { printf("Yacc: Empty arg_list\n"); }
-#line 1244 "y.tab.c"
+                { //printf("Yacc: Empty arg_list\n"); 
+    }
+#line 1245 "y.tab.c"
     break;
 
   case 17: /* argument: WORD  */
-#line 92 "shell.y"
+#line 93 "shell.y"
          {
-        printf("Yacc: insert argument \"%s\"\n", (yyvsp[0].string_val));
+        //printf("Yacc: insert argument \"%s\"\n", $1);
         Command::_currentSimpleCommand->insertArgument((yyvsp[0].string_val));
     }
-#line 1253 "y.tab.c"
+#line 1254 "y.tab.c"
     break;
 
   case 18: /* command_word: WORD  */
-#line 99 "shell.y"
+#line 100 "shell.y"
          {
-        printf("Yacc: insert command \"%s\"\n", (yyvsp[0].string_val));
+        //printf("Yacc: insert command \"%s\"\n", $1);
         Command::_currentSimpleCommand = new SimpleCommand();
         Command::_currentSimpleCommand->insertArgument((yyvsp[0].string_val));
     }
-#line 1263 "y.tab.c"
+#line 1264 "y.tab.c"
     break;
 
   case 19: /* iomodifier_opt: GREAT WORD  */
-#line 107 "shell.y"
+#line 108 "shell.y"
                {
-        printf("Yacc: insert output \"%s\"\n", (yyvsp[0].string_val));
+        //printf("Yacc: insert output \"%s\"\n", $2);
         Command::_currentCommand._outFile = (yyvsp[0].string_val);
         Command::_currentSimpleCommand->_append = 0;
     }
-#line 1273 "y.tab.c"
+#line 1274 "y.tab.c"
     break;
 
   case 20: /* iomodifier_opt: LESS WORD  */
-#line 112 "shell.y"
+#line 113 "shell.y"
                 {
-        printf("Yacc: insert input \"%s\"\n", (yyvsp[0].string_val));
+        //printf("Yacc: insert input \"%s\"\n", $2);
         Command::_currentCommand._inputFile = (yyvsp[0].string_val);
     }
-#line 1282 "y.tab.c"
+#line 1283 "y.tab.c"
     break;
 
   case 21: /* iomodifier_opt: GREAT_GREAT WORD  */
-#line 116 "shell.y"
+#line 117 "shell.y"
                        {
-        printf("Yacc: append output \"%s\"\n", (yyvsp[0].string_val));
+        //printf("Yacc: append output \"%s\"\n", $2);
         Command::_currentCommand._outFile = (yyvsp[0].string_val);
         Command::_currentSimpleCommand->_append = 1;
     }
-#line 1292 "y.tab.c"
+#line 1293 "y.tab.c"
     break;
 
   case 22: /* iomodifier_opt: AMPERSAND  */
-#line 121 "shell.y"
+#line 122 "shell.y"
                 {
-        printf("Yacc: run in background\n");
+        //printf("Yacc: run in background\n");
         Command::_currentCommand._background = 1;
     }
-#line 1301 "y.tab.c"
+#line 1302 "y.tab.c"
     break;
 
   case 23: /* iomodifier_opt: GREAT WORD iomodifier_opt  */
-#line 125 "shell.y"
+#line 126 "shell.y"
                                       { 
-		printf("Yacc: Found additional output redirection > %s\n", (yyvsp[-1].string_val)); 
+		//printf("Yacc: Found additional output redirection > %s\n", $2); 
 		}
-#line 1309 "y.tab.c"
+#line 1310 "y.tab.c"
     break;
 
   case 24: /* iomodifier_opt: LESS WORD iomodifier_opt  */
-#line 128 "shell.y"
+#line 129 "shell.y"
                                   {
-		printf("Yacc: Found additional input redirection < %s\n", (yyvsp[-1].string_val)); 
+		//printf("Yacc: Found additional input redirection < %s\n", $2); 
 		}
-#line 1317 "y.tab.c"
+#line 1318 "y.tab.c"
     break;
 
 
-#line 1321 "y.tab.c"
+#line 1322 "y.tab.c"
 
       default: break;
     }
@@ -1510,7 +1511,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 134 "shell.y"
+#line 135 "shell.y"
 
 
 // Error handling function

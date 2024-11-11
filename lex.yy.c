@@ -782,7 +782,7 @@ case 6:
 YY_RULE_SETUP
 #line 40 "shell.l"
 { 
-		printf("Lex: Found a PIPE token\n"); return PIPE; }
+		return PIPE; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
