@@ -42,9 +42,10 @@ Prerequisite: make sure you have lex, yacc and make installed
 
 ## 3. Sample Run
 
+![alt text](images/image1.png)
 
-## 4. Acknowledgements and Resources
--------------------------------
+![alt text](image.png)
+
 
 
 

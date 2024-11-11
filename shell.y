@@ -77,7 +77,7 @@ command_and_args:
         Command::_currentCommand.insertSimpleCommand(Command::_currentSimpleCommand);
     }
 	| command_and_args PIPE command_word arg_list {
-		printf("Yacc: You inserted PIPE Operator \n");
+		//printf("Yacc: You inserted PIPE Operator \n");
 		Command::_currentCommand.insertSimpleCommand(Command::_currentSimpleCommand);
 	}
     ;
