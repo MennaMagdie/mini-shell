@@ -5,12 +5,10 @@
 
 #include <fcntl.h>
 
-// Command Data Structure
 struct SimpleCommand {
 	// Available space for arguments currently preallocated
 	int _numberOfAvailableArguments;
 
-	// Number of arguments
 	int _numberOfArguments;
 	char ** _arguments;
 	int _append;
@@ -34,12 +32,9 @@ struct Command {
 	void clear();
 
 	void changeDirectory(const char *dir);
-
 	void logTerminatedChild(pid_t pid, int i);
-
-	// void redirect_(int cmd_no, int in, int out);
-	void redirect(int i, int myinput, int myoutput);
-	void handlePipes(int defaultin, int defaultout);
+	void redirect(int cmd_no, int inp, int outp);
+	void getPipe(int defaultin, int defaultout);
 	
 	Command();
 	void insertSimpleCommand( SimpleCommand * simpleCommand );

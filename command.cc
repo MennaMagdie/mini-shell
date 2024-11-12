@@ -154,53 +154,43 @@ void Command::print()
 }
 
 void Command::changeDirectory(const char *dir) {
+
     if (dir == NULL || strcmp(dir, "") == 0) {
-        // dir = getenv("HOME");
 		dir = "/";
-        if (dir == NULL) {
-            dir = "/";
-            fprintf(stderr, "Warning: HOME environment variable not set, changing to root directory\n");
-        }
     }
     if (chdir(dir) != 0) {
         perror("cd failed");
     }
-
     prompt();
 }
 
 
-void Command::logTerminatedChild(pid_t pid, int i)
-{
-     auto now = std::chrono::system_clock::now();
-    std::time_t end_time = std::chrono::system_clock::to_time_t(now);
-    
-    std::ostringstream oss;
-    oss << std::put_time(std::localtime(&end_time), "%d-%m-%Y %H:%M");
-
+void Command::logTerminatedChild(pid_t pid, int i) {
     std::ofstream logfile("logfile.log", std::ios_base::app);
     if (!logfile) {
-        std::cerr << "Error opening logfile.log" << std::endl;
+        std::cerr << "Error: Unable to open logfile.log for appending." << std::endl;
         return;
     }
 
-    logfile << oss.str() << " Child process " << pid << " ";
-    
-    for (int j = 0; j < _simpleCommands[i]->_numberOfArguments; j++) {
+    auto now = std::chrono::system_clock::now();
+    std::time_t end_time = std::chrono::system_clock::to_time_t(now);
+    logfile << std::put_time(std::localtime(&end_time), "%d-%m-%Y %H:%M");
+
+    logfile << " Child process " << pid << " ";
+    for (int j = 0; j < _simpleCommands[i]->_numberOfArguments; ++j) {
         logfile << " " << _simpleCommands[i]->_arguments[j];
     }
-    
-    logfile << " terminated" << std::endl;
-	logfile.close();
+    logfile << " terminated." << std::endl;
 }
+
 
 void Command::redirect(int i, int myinput, int myoutput)
 {
     if (_inputFile && _outFile)
     {
+		// printf("delwa2ty i/o");
         int infd = open(_inputFile, O_RDONLY, 0666);
-        int outfd = _simpleCommands[i]->_append ? open(_outFile, O_WRONLY | O_CREAT | O_APPEND, 0666)
-                                                 : open(_outFile, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+        int outfd = _simpleCommands[i]->_append ? open(_outFile, O_WRONLY | O_CREAT | O_APPEND, 0666): open(_outFile, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 
         if (infd < 0 || outfd < 0)
         {
@@ -219,6 +209,7 @@ void Command::redirect(int i, int myinput, int myoutput)
 
     if (_inputFile)
     {
+		// printf("delwa2ty in");
         int infd = open(_inputFile, O_RDONLY, 0666);
         if (infd < 0)
         {
@@ -230,11 +221,13 @@ void Command::redirect(int i, int myinput, int myoutput)
     }
     else if (myinput != 0)
     {
+		// printf("delwa2ty in2");
         dup2(myinput, 0); 
         close(myinput);
     }
     if (_outFile)
     {
+		// printf("delwa2ty out");
         int outfd = _simpleCommands[i]->_append ? open(_outFile, O_WRONLY | O_CREAT | O_APPEND, 0666)
                                                  : open(_outFile, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 
@@ -248,22 +241,24 @@ void Command::redirect(int i, int myinput, int myoutput)
     }
     else if (myoutput != 1)
     {
+		// printf("delwa2ty out2");
         dup2(myoutput, 1);
         close(myoutput);
     }
+	
 }
 
 
 
 
 
-void Command::handlePipes(int defaultin, int defaultout)
+void Command::getPipe(int defaultin, int defaultout)
 {
 	int previousPipe[2];
 	pid_t lastChild;
 	for (int i = 0; i < _numberOfSimpleCommands; i++)
 	{
-		int currentPipe[2];
+		int currentPipe[2]; //what is meant by pipe creation
 		if (pipe(currentPipe) == -1)
 		{
 			perror("pipe creation error");
@@ -379,7 +374,7 @@ void Command::execute()
 	}
 	else
 	{
-		this->handlePipes(defaultin, defaultout);
+		this->getPipe(defaultin, defaultout);
 	}
 	// Clear to prepare for next command
 	clear();
