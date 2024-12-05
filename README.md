@@ -47,10 +47,3 @@ Prerequisite: make sure you have lex, yacc and make installed
 ![alt text](images/image.png)
 
 
-
-
-TO BE FIXED:
-1. cat < out > out2
-2. ls /tt >>& out2
-3. BONUS | Wildcarding
-
